@@ -9,6 +9,6 @@ var Location = db.define('Location', {
 /**
  * Create table if doesn't exist
  */
-Location.sync({force: true});
+Location.sync();
 
 module.exports = Location;

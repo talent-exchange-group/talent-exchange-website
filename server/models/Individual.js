@@ -9,6 +9,6 @@ var Individual = db.define('Individual', {
 /**
  * Create table if doesn't exist
  */
-Individual.sync({force: true});
+Individual.sync();
 
 module.exports = Individual;

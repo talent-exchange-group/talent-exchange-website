@@ -9,6 +9,6 @@ var Skill = db.define('Skill', {
 /**
  * Create table if doesn't exist
  */
-Skill.sync({force: true});
+Skill.sync();
 
 module.exports = Skill;
