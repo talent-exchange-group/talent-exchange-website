@@ -1,6 +1,6 @@
 var Organization = require('../models/Organization');
 
-var orgControllers = {
+var orgController = {
 
 }
 

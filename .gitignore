@@ -3,5 +3,5 @@
 TODO.md
 /dist
 npm-debug.log
+/*/npm-debug.log
 server/config/secret.js
-/test/

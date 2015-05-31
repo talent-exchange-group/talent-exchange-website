@@ -1,4 +1,4 @@
-var Skill = require('Skill');
+var Skill = require('../models/Skill');
 
 var utils = {
   getSkillId: function(skill, callback){
@@ -7,9 +7,9 @@ var utils = {
       console.log(skill);
     });
   },
-  addSkill: function(skill){
+  addSkill: function(skill, callback){
     Skill.create({name: skill}).then(function(skill){
-      console.log(skill);
+      callback({id: skill.id, name: skill.name});
     });
   }
 }

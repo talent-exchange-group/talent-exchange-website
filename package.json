@@ -7,7 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "npm test",
+    "test": "mocha test",
     "start": "nodemon"
   },
   "repository": {
@@ -35,9 +35,15 @@
     "passport-google-oauth": "^0.2.0",
     "passport-local": "^1.0.0",
     "pg": "^4.3.0",
-    "redis": "^0.12.1"
+    "pg-hstore": "^2.3.2",
+    "redis": "^0.12.1",
+    "sequelize": "^2.1.0"
   },
   "devDependencies": {
-    "morgan": "^1.5.3"
+    "chai": "^2.3.0",
+    "mocha": "^2.2.5",
+    "morgan": "^1.5.3",
+    "sinon": "^1.14.1",
+    "supertest": "^1.0.1"
   }
 }

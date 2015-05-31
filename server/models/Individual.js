@@ -8,10 +8,10 @@ var Individual = db.define('Individual', {
 });
 
 IndividualSkill = db.define('IndividualSkill', {
-  id: { type: Sequelize.INTEGER, autoIncrement true, primaryKey: true }
+  id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true }
 });
 Individual.hasMany(Skill, { through: IndividualSkill });
-Skill.hasMany(Individual, { through: IndividualSkill });
+Individual.belongsToMany(Skill, { through: IndividualSkill });
 
 /**
  * Create table if doesn't exist
