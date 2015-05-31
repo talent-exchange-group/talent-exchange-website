@@ -10,12 +10,17 @@ var Individual = db.define('Individual', {
 IndividualSkill = db.define('IndividualSkill', {
   id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true }
 });
-Individual.hasMany(Skill, { through: IndividualSkill });
-Individual.belongsToMany(Skill, { through: IndividualSkill });
-
+Individual.belongsToMany(Skill, {
+  through: IndividualSkill,
+  foreignKey: 'individual_id' 
+});
+Skill.belongsToMany(Individual, {
+  through: IndividualSkill,
+  foreignKey: 'skill_id'
+});
 /**
  * Create table if doesn't exist
  */
-Individual.sync();
+Individual.sync({force:true});
 
 module.exports = Individual;
