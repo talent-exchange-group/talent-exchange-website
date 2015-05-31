@@ -20,7 +20,16 @@ describe('API', function(){
           done();
         });
     });
-    it('should add retrieve all location from database', function(done){
+    it('should not add duplicate entries', function(done){
+      request.post('/api/location/create')
+        .send(locObj)
+        .end(function(err, res){
+          var addedLoc = JSON.parse(res.text);
+          expect(addedLoc.exists).to.equal(true);
+          done();
+        });
+    });
+    it('should retrieve all location from database', function(done){
       request.get('/api/location/all')
         .end(function(err, res){
           var locs = JSON.parse(res.text);
