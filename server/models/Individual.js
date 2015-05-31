@@ -4,8 +4,9 @@ var Skill = require('./Skill');
 
 var Individual = db.define('Individual', {
   id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
-  name: Sequelize.STRING,
-  password: Sequelize.STRING
+  email: Sequelize.STRING,
+  password: Sequelize.STRING,
+  name: Sequelize.STRING
 });
 
 IndividualSkill = db.define('IndividualSkill', {

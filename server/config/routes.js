@@ -8,37 +8,48 @@ function router(app, passport){
     res.sendStatus(200);
   });
   /**
-   * Retrieve all skills
+   * INDIVIDUAL API
    */
-  app.get('/api/skill/all', function(req, res){
-    SkillController.getAll(function(skills){
-      return res.send(skills);
-    });
-  });
-  app.get('/api/skill/*', function(req, res){
-    var skill = req.params[0];
-    SkillController.getId(skill, function(id){
-      return res.send(id);
+  app.post('/api/individual/create', function(req, res){
+    var email = req.body.email,
+        password = req.body.password,
+        name = req.body.name;
+    IndController.add(email, password, name, function(addedInd){
+      return res.send(addedInd);
     });
   });
   /**
-   * Create new skill
+   * SKILL API
    */
+  app.get('/api/skill/*', function(req, res){
+    var param = req.params[0];
+    if(param === 'all') {
+      SkillController.getAll(function(skills){
+        return res.send(skills);
+      });
+    }
+    else {
+      var skill = param.split('=')[1];
+      SkillController.getId(skill, function(id){
+        return res.send(id);
+      });
+    }
+  });
+
   app.post('/api/skill/create', function(req, res){
     var skill = req.body.skill;
     SkillController.add(skill, function(addedSkill){
       return res.send(addedSkill);
     });
   });
-  /**
-   * Remove skill
-   */
   app.post('/api/skill/remove', function(req, res){
     var skill = req.body.skill;
     SkillController.remove(skill, function(removedSkill){
       return res.send(removedSkill);
     });
   });
+
+  
 }
 
 module.exports = router;

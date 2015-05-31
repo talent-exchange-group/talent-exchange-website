@@ -1,14 +1,17 @@
 var expect = require('chai').expect;
 var request = require('supertest')('http://localhost:1337');
-
+var bcrypt = require('bcrypt');
 
 describe('API', function(){
-  describe('Skill API', function(){
+  /**
+   * TEST FOR SKILL API
+   */
+  describe('Skill', function(){
 
     var fencingId;
     var skillObj = {skill: 'fencing'};
 
-    it('should add a skill to the Skill table', function(done){
+    it('should add a skill to database', function(done){
       request.post('/api/skill/create')
         .send(skillObj)
         .end(function(err, res){
@@ -23,7 +26,7 @@ describe('API', function(){
         .send(skillObj)
         .end(function(err, res){
           var addedSkill = JSON.parse(res.text);
-          expect(addedSkill.id).to.equal(fencingId);
+          expect(addedSkill.exists).to.equal(true);
           done();
         });
     });
@@ -36,7 +39,7 @@ describe('API', function(){
         });
     });
     it('should retrieve the id of a stored skill from the Skill table', function(done){
-      request.get('/api/skill/fencing')
+      request.get('/api/skill/name=fencing')
         .end(function(err, res){
           var skill = JSON.parse(res.text);
           expect(skill.id).to.equal(fencingId);
@@ -44,7 +47,7 @@ describe('API', function(){
         });
     });
     it('should standardize input', function(done){
-      request.get('/api/skill/Fencing')
+      request.get('/api/skill/name=Fencing')
         .end(function(err, res){
           var skill = JSON.parse(res.text);
           expect(skill.id).to.equal(fencingId);
@@ -61,13 +64,38 @@ describe('API', function(){
         });
     });
     it('should return -1 for non-existing skill', function(done){
-      request.get('/api/skill/Fencing')
+      request.get('/api/skill/name=Fencing')
         .end(function(err, res){
           var skill = JSON.parse(res.text);
           expect(skill.id).to.equal(-1);
           done();
         });
     });
+  });
+
+  /**
+   * TEST FOR INDIVIDUAL API
+   */
+  describe('Individual API', function(){
+
+    var indId;
+    var indObj = {
+      email: 'gong.jim@gmail.com',
+      password: 'asparagus',
+      name: 'Jimmy Gong'
+    };
+    it('should add individual to database', function(done){
+      request.post('/api/individual/create')
+        .send(indObj)
+        .end(function(err, res){
+          var addedInd = JSON.parse(res.text);
+          indId = addedInd.id;
+          expect(addedInd.email).to.equal(indObj.email);
+          expect(addedInd.name).to.equal(indObj.name);
+          done();
+        });
+    });
+
   });
 });
 
