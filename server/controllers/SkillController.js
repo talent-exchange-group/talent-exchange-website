@@ -1,14 +1,20 @@
 var Skill = require('../models/Skill');
 
-var utils = {
-  getSkillId: function(skill, callback){
-    var query = {where: {name: skill}};
+var controller = {
+  attachParam: function(req, res,next, param){
+    req.body = {}
+  },
+  getSkillByName: function(skillName, callback){
+    var query = {where: {name: skillName}};
     Skill.findOne(query).then(function(skill){
+      if (!skill){
+        callback(null);
+      }
       callback(removeTimeStamps(skill));
     });
   },
-  addSkill: function(skill, callback){
-    Skill.create({name: skill}).then(function(skill){
+  addSkill: function(skillName, callback){
+    Skill.create({name: skillName}).then(function(skill){
       callback(removeTimeStamps(skill));
     });
   },
@@ -26,4 +32,4 @@ function removeTimeStamps(obj){
   return obj;
 }
 
-module.exports = utils;
+module.exports = controller;

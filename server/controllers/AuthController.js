@@ -1,7 +1,8 @@
 var Individual = require('../models/Individual');
 var Organization = require('../models/Organization');
 
-var authController = {
+var controller = {
 
 }
-module.exports = authController;
+
+module.exports = controller;

@@ -1,7 +1,7 @@
 var AuthController = require('../controllers/AuthController');
 var IndController = require('../controllers/IndController');
 var OrgController = require('../controllers/OrgController');
-var utils = require('../helpers/utils');
+var SkillController = require('../controllers/SkillController');
 
 function router(app, passport){
   app.get('/', function(req, res){
@@ -10,15 +10,24 @@ function router(app, passport){
   /**
    * Retrieve all skills
    */
-  app.get('/api/skill', function(req, res){
-    utils.getAllSkills(function(skills){
+  app.get('/api/skill/all', function(req, res){
+    SkillController.getAllSkills(function(skills){
       return res.send(skills);
     })
   });
+  app.get('/api/skill/*', function(req, res){
+    var skill = req.params[0];
+    SkillController.getSkillByName(skill, function(skill){
+      return res.send(skill)
+    });
+  });
+  /**
+   * Create new skill
+   */
   app.post('/api/skill', function(req, res){
     var skill = req.body.skill;
     console.log('hello');
-    utils.addSkill(skill, function(addedSkill){
+    SkillController.addSkill(skill, function(addedSkill){
       return res.send(addedSkill);
     });
 

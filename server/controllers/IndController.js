@@ -1,8 +1,7 @@
 var Individual = require('../models/Individual');
-var utils = require('../helpers/utils');
 
-var indController = {
+var controller = {
 
 };
 
-module.exports = indController;
+module.exports = controller;

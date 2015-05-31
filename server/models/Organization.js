@@ -26,6 +26,7 @@ Skill.belongsToMany(Organization, {
 /**
  * Create table if doesn't exist
  */
+Organization.drop({cascade:true});
 Organization.sync({force:true});
 
 module.exports = Organization;

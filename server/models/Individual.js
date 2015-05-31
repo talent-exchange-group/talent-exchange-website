@@ -21,6 +21,7 @@ Skill.belongsToMany(Individual, {
 /**
  * Create table if doesn't exist
  */
+Individual.drop({cascade:true});
 Individual.sync({force:true});
 
 module.exports = Individual;

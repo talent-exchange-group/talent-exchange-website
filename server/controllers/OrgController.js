@@ -1,7 +1,7 @@
 var Organization = require('../models/Organization');
 
-var orgController = {
+var controller = {
 
 }
 
-module.exports = orgController;
+module.exports = controller;
