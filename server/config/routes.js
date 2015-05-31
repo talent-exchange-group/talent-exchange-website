@@ -24,12 +24,20 @@ function router(app, passport){
   /**
    * Create new skill
    */
-  app.post('/api/skill', function(req, res){
+  app.post('/api/skill/create', function(req, res){
     var skill = req.body.skill;
     SkillController.addSkill(skill, function(addedSkill){
       return res.send(addedSkill);
     });
-
+  });
+  /**
+   * Remove skill
+   */
+  app.post('/api/skill/remove', function(req, res){
+    var skill = req.body.skill;
+    SkillController.removeSkill(skill, function(removedSkill){
+      return res.send(removedSkill);
+    });
   });
 }
 

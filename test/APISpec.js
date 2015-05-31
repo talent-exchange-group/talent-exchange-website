@@ -6,12 +6,12 @@ describe('API', function(){
   describe('Skill API', function(){
 
     var fencingId;
+    var skillObj = {skill: 'Fencing'};
 
     it('should add a skill to the Skill table', function(done){
-      var skillObj = {skill: 'Fencing'};
-      request.post('/api/skill')
+      request.post('/api/skill/create')
         .send(skillObj)
-        .end(function(err,res){
+        .end(function(err, res){
           var addedSkill = JSON.parse(res.text);
           fencingId = addedSkill.id;
           expect(addedSkill.name).to.equal(skillObj.skill);
@@ -34,8 +34,17 @@ describe('API', function(){
           done();
         });
     });
+    it('should remove entries', function(done){
+      request.post('/api/skill/remove')
+        .send(skillObj)
+        .end(function(err, res){
+          var removedSkill = JSON.parse(res.text);
+          expect(removedSkill.id).to.equal(fencingId);
+          done();
+        });
+    });
     it('should return -1 for non-existing skill', function(done){
-      request.get('/api/skill/NOTFOUNDBASKETWEAVING')
+      request.get('/api/skill/Fencing')
         .end(function(err, res){
           var skill = JSON.parse(res.text);
           expect(skill.id).to.equal(-1);

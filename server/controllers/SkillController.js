@@ -19,6 +19,14 @@ var controller = {
     Skill.findAll({}, {subQuery: false}).then(function(skills){
       callback(skills.map(removeTimeStamps));
     });
+  },
+  removeSkill: function(skillName, callback){
+    var query = {where: {name: skillName}};
+    Skill.findOne(query).then(function(skill){
+      skill.destroy().then(function(){
+        callback(skill);
+      });
+    });
   }
 }
 
