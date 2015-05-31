@@ -8,7 +8,7 @@ describe('API', function(){
    */
   describe('Location', function(){
     var locId;
-    var locObj = {location: 'Beirut'};
+    var locObj = {location: 'beirut'};
 
     it('should add a location to database', function(done){
       request.post('/api/location/create')
@@ -33,7 +33,8 @@ describe('API', function(){
       request.get('/api/location/all')
         .end(function(err, res){
           var locs = JSON.parse(res.text);
-          expect(locs[0].name).to.equal(lobObj.location);
+          expect(locs[0].name).to.equal(locObj.location);
+          done();
         });
     });
     it('should retrieve the id of a location', function(done){
@@ -41,6 +42,7 @@ describe('API', function(){
         .end(function(err, res){
           var loc = JSON.parse(res.text);
           expect(loc.id).to.equal(locId);
+          done();
         });
     });
     it('should standardize input by casing and whitespace', function(done){
@@ -48,6 +50,7 @@ describe('API', function(){
         .end(function(err, res){
           var loc = JSON.parse(res.text);
           expect(loc.id).to.equal(locId);
+          done();
         });
     });
     it('should remove specified locations from database', function(done){
@@ -56,6 +59,7 @@ describe('API', function(){
         .end(function(err, res){
           var removedLoc = JSON.parse(res.text);
           expect(removedLoc.id).to.equal(locId);
+          done();
         });
     });
     it('should not retrieve non-existent locations', function(done){
@@ -63,6 +67,7 @@ describe('API', function(){
         .end(function(err, res){
           var loc = JSON.parse(res.text);
           expect(loc.id).to.equal(-1);
+          done();
         });
     });
   });
@@ -200,7 +205,7 @@ describe('API', function(){
         });
     });
     it('should return -1 for non-existing individual', function(done){
-      request.get('/api/individual/email=Fencing')
+      request.get('/api/individual/email=gong.jim@gmail.com')
         .end(function(err, res){
           var individual = JSON.parse(res.text);
           expect(individual.id).to.equal(-1);

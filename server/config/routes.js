@@ -52,7 +52,7 @@ function router(app, passport){
         return res.send(locations);
       });
     }
-    return LocController.getId(function(location){
+    return LocController.getId(param[1], function(location){
       return res.send(location);
     });
   });
