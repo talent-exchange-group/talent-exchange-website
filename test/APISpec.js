@@ -6,7 +6,7 @@ describe('API', function(){
   describe('Skill API', function(){
 
     var fencingId;
-    var skillObj = {skill: 'Fencing'};
+    var skillObj = {skill: 'fencing'};
 
     it('should add a skill to the Skill table', function(done){
       request.post('/api/skill/create')
@@ -22,18 +22,26 @@ describe('API', function(){
       request.get('/api/skill/all')
         .end(function(err, res) {
           var skills = JSON.parse(res.text);
-          expect(skills[0].name).to.equal('Fencing');
+          expect(skills[0].name).to.equal(skillObj.skill);
           done();
         });
     });
     it('should retrieve the id of a stored skill from the Skill table', function(done){
-      request.get('/api/skill/Fencing')
+      request.get('/api/skill/fencing')
         .end(function(err, res){
           var skill = JSON.parse(res.text);
           expect(skill.id).to.equal(fencingId);
           done();
         });
     });
+    it('should standardize input', function(done){
+      request.get('/api/skill/Fencing')
+        .end(function(err, res){
+          var skill = JSON.parse(res.text);
+          expect(skill.id).to.equal(fencingId);
+          done();
+        });
+    })
     it('should remove entries', function(done){
       request.post('/api/skill/remove')
         .send(skillObj)

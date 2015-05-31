@@ -2,6 +2,7 @@ var Skill = require('../models/Skill');
 
 var controller = {
   getSkillId: function(skillName, callback){
+    skillName = standardizeInput(skillName);
     var query = {where: {name: skillName}};
     Skill.findOne(query).then(function(skill){
       if (skill === null){
@@ -11,6 +12,7 @@ var controller = {
     });
   },
   addSkill: function(skillName, callback){
+    skillName = standardizeInput(skillName);
     Skill.create({name: skillName}).then(function(skill){
       callback(removeTimeStamps(skill));
     });
@@ -21,6 +23,7 @@ var controller = {
     });
   },
   removeSkill: function(skillName, callback){
+    skillName = standardizeInput(skillName);
     var query = {where: {name: skillName}};
     Skill.findOne(query).then(function(skill){
       skill.destroy().then(function(){
@@ -34,6 +37,10 @@ function removeTimeStamps(obj){
   delete obj['createdAt'];
   delete obj['updatedAt'];
   return obj;
+}
+
+function standardizeInput(skillName){
+  return skillName.toLowerCase().trim();
 }
 
 module.exports = controller;
