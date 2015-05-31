@@ -1,7 +1,21 @@
 var Skill = require('../models/Skill');
 
 var controller = {
-  getSkillId: function(skillName, callback){
+  add: function(skillName, callback){
+    skillName = standardizeInput(skillName);
+    this.getId(skillName, function(found){
+      if(found.id === -1){
+        Skill.create({name: skillName}).then(function(skill){
+          callback(removeTimeStamps(skill));
+        });
+      }
+      else {
+        found['name'] = skillName;
+        callback(found);
+      }
+    });
+  },
+  getId: function(skillName, callback){
     skillName = standardizeInput(skillName);
     var query = {where: {name: skillName}};
     Skill.findOne(query).then(function(skill){
@@ -11,18 +25,12 @@ var controller = {
       else callback({id: skill.id});
     });
   },
-  addSkill: function(skillName, callback){
-    skillName = standardizeInput(skillName);
-    Skill.create({name: skillName}).then(function(skill){
-      callback(removeTimeStamps(skill));
-    });
-  },
-  getAllSkills: function(callback){
+  getAll: function(callback){
     Skill.findAll({}, {subQuery: false}).then(function(skills){
       callback(skills.map(removeTimeStamps));
     });
   },
-  removeSkill: function(skillName, callback){
+  remove: function(skillName, callback){
     skillName = standardizeInput(skillName);
     var query = {where: {name: skillName}};
     Skill.findOne(query).then(function(skill){

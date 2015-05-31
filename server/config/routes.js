@@ -11,13 +11,13 @@ function router(app, passport){
    * Retrieve all skills
    */
   app.get('/api/skill/all', function(req, res){
-    SkillController.getAllSkills(function(skills){
+    SkillController.getAll(function(skills){
       return res.send(skills);
     });
   });
   app.get('/api/skill/*', function(req, res){
     var skill = req.params[0];
-    SkillController.getSkillId(skill, function(id){
+    SkillController.getId(skill, function(id){
       return res.send(id);
     });
   });
@@ -26,7 +26,7 @@ function router(app, passport){
    */
   app.post('/api/skill/create', function(req, res){
     var skill = req.body.skill;
-    SkillController.addSkill(skill, function(addedSkill){
+    SkillController.add(skill, function(addedSkill){
       return res.send(addedSkill);
     });
   });
@@ -35,7 +35,7 @@ function router(app, passport){
    */
   app.post('/api/skill/remove', function(req, res){
     var skill = req.body.skill;
-    SkillController.removeSkill(skill, function(removedSkill){
+    SkillController.remove(skill, function(removedSkill){
       return res.send(removedSkill);
     });
   });

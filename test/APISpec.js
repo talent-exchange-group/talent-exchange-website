@@ -18,6 +18,15 @@ describe('API', function(){
           done();
         });
     });
+    it('should not add an already existing skill', function(done){
+      request.post('/api/skill/create')
+        .send(skillObj)
+        .end(function(err, res){
+          var addedSkill = JSON.parse(res.text);
+          expect(addedSkill.id).to.equal(fencingId);
+          done();
+        });
+    });
     it('should retrieve all skills from the Skill table', function(done){
       request.get('/api/skill/all')
         .end(function(err, res) {

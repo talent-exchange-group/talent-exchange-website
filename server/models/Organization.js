@@ -6,6 +6,7 @@ var Skill = require('./Skill');
 var Organization = db.define('Organization', {
   id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
   name: Sequelize.STRING,
+  password: Sequelize.STRING,
   description: Sequelize.STRING,
   contact: Sequelize.STRING
 });
