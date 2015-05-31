@@ -10,6 +10,14 @@ function router(app, passport){
   /**
    * INDIVIDUAL API
    */
+  app.get('/api/individual/*', function(req, res){
+    var param = req.params[0];
+    if(param === 'all'){
+      IndController.getAll(function(individuals){
+        return res.send(individuals);
+      });
+    }
+  });
   app.post('/api/individual/create', function(req, res){
     var email = req.body.email,
         password = req.body.password,
@@ -23,7 +31,7 @@ function router(app, passport){
    */
   app.get('/api/skill/*', function(req, res){
     var param = req.params[0];
-    if(param === 'all') {
+    if(param === 'all'){
       SkillController.getAll(function(skills){
         return res.send(skills);
       });

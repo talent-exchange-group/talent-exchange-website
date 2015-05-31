@@ -95,6 +95,14 @@ describe('API', function(){
           done();
         });
     });
+    it('should retrieve all individuals from the database', function(done){
+      request.get('/api/individual/all')
+      .end(function(err, res){
+        var individuals = JSON.parse(res.text);
+        expect(individuals[0].email).to.equal(indObj.email);
+        done();
+      });
+    });
 
   });
 });
