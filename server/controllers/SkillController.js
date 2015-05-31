@@ -37,7 +37,7 @@ var controller = {
     var query = {where: {name: skillName}};
     Skill.findOne(query).then(function(skill){
       skill.destroy().then(function(){
-        callback(skill);
+        callback(utils.removeTimeStamps(skill));
       });
     });
   }

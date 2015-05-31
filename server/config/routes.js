@@ -36,6 +36,12 @@ function router(app, passport){
       return res.send(addedInd);
     });
   });
+  app.post('/api/individual/remove', function(req, res){
+    var email = req.body.email;
+    return IndController.remove(email, function(removedInd){
+      return res.send(removedInd);
+    });
+  });
   /**
    * SKILL API
    */

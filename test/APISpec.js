@@ -127,6 +127,15 @@ describe('API', function(){
           done();
         });
     });
+    it('should remove individuals', function(done){
+      request.post('/api/individual/remove')
+        .send(indObj)
+        .end(function(err, res){
+          var removedInd = JSON.parse(res.text);
+          expect(removedInd.id).to.equal(indId);
+          done();
+        });
+    });
   });
 });
 

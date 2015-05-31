@@ -35,6 +35,14 @@ var controller = {
       ind = utils.protectUserObj(ind);
       callback(ind);
     });
+  },
+  remove: function(email, callback){
+    var query = {where: {email: email}};
+    Individual.findOne(query).then(function(individual){
+      individual.destroy().then(function(){
+        callback(utils.protectUserObj(individual));
+      });
+    });
   }
 };
 
