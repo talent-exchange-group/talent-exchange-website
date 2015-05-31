@@ -1,16 +1,13 @@
 var Skill = require('../models/Skill');
 
 var controller = {
-  attachParam: function(req, res,next, param){
-    req.body = {}
-  },
-  getSkillByName: function(skillName, callback){
+  getSkillId: function(skillName, callback){
     var query = {where: {name: skillName}};
     Skill.findOne(query).then(function(skill){
-      if (!skill){
-        callback(null);
+      if (skill === null){
+        callback({id: -1});
       }
-      callback(removeTimeStamps(skill));
+      else callback({id: skill.id});
     });
   },
   addSkill: function(skillName, callback){
@@ -20,7 +17,6 @@ var controller = {
   },
   getAllSkills: function(callback){
     Skill.findAll({}, {subQuery: false}).then(function(skills){
-      console.log(skills);
       callback(skills.map(removeTimeStamps));
     });
   }

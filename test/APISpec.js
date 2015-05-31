@@ -32,7 +32,15 @@ describe('API', function(){
           var skill = JSON.parse(res.text);
           expect(skill.id).to.equal(fencingId);
           done();
-        })
+        });
+    });
+    it('should return -1 for non-existing skill', function(done){
+      request.get('/api/skill/NOTFOUNDBASKETWEAVING')
+        .end(function(err, res){
+          var skill = JSON.parse(res.text);
+          expect(skill.id).to.equal(-1);
+          done();
+        });
     });
   });
 });

@@ -13,12 +13,12 @@ function router(app, passport){
   app.get('/api/skill/all', function(req, res){
     SkillController.getAllSkills(function(skills){
       return res.send(skills);
-    })
+    });
   });
   app.get('/api/skill/*', function(req, res){
     var skill = req.params[0];
-    SkillController.getSkillByName(skill, function(skill){
-      return res.send(skill)
+    SkillController.getSkillId(skill, function(id){
+      return res.send(id);
     });
   });
   /**
@@ -26,7 +26,6 @@ function router(app, passport){
    */
   app.post('/api/skill', function(req, res){
     var skill = req.body.skill;
-    console.log('hello');
     SkillController.addSkill(skill, function(addedSkill){
       return res.send(addedSkill);
     });
