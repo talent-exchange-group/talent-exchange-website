@@ -136,6 +136,14 @@ describe('API', function(){
           done();
         });
     });
+    it('should return -1 for non-existing individual', function(done){
+      request.get('/api/individual/email=Fencing')
+        .end(function(err, res){
+          var individual = JSON.parse(res.text);
+          expect(individual.id).to.equal(-1);
+          done();
+        });
+    });
   });
 });
 
