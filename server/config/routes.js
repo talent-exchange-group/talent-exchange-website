@@ -5,22 +5,26 @@ var SkillController = require('../controllers/SkillController');
 
 function router(app, passport){
   app.get('/', function(req, res){
-    res.sendStatus(200);
+    return res.sendStatus(200);
   });
   /**
    * INDIVIDUAL API
    */
   app.get('/api/individual/*', function(req, res){
-    var param = req.params[0];
-    if(param === 'all'){
-      IndController.getAll(function(individuals){
+    var param = req.params[0].split('=');
+    if(param[0] === 'all'){
+      return IndController.getAll(function(individuals){
         return res.send(individuals);
       });
     }
-    else {
-      var email = param.split('=')[1];
-      IndController.getId(email, function(id){
+    if(param[0] === 'email'){
+      return IndController.getId(param[1], function(id){
         return res.send(id);
+      });
+    }
+    if(param[0] === 'name'){
+      return IndController.getByName(param[1], function(individuals){
+        return res.send(individuals);
       });
     }
   });
@@ -28,7 +32,7 @@ function router(app, passport){
     var email = req.body.email,
         password = req.body.password,
         name = req.body.name;
-    IndController.add(email, password, name, function(addedInd){
+    return IndController.add(email, password, name, function(addedInd){
       return res.send(addedInd);
     });
   });
@@ -36,29 +40,26 @@ function router(app, passport){
    * SKILL API
    */
   app.get('/api/skill/*', function(req, res){
-    var param = req.params[0];
-    if(param === 'all'){
-      SkillController.getAll(function(skills){
+    var param = req.params[0].split('=');
+    if(param[0] === 'all'){
+      return SkillController.getAll(function(skills){
         return res.send(skills);
       });
     }
-    else {
-      var skill = param.split('=')[1];
-      SkillController.getId(skill, function(id){
-        return res.send(id);
-      });
-    }
+    return SkillController.getId(param[1], function(id){
+      return res.send(id);
+    });
   });
 
   app.post('/api/skill/create', function(req, res){
     var skill = req.body.skill;
-    SkillController.add(skill, function(addedSkill){
+    return SkillController.add(skill, function(addedSkill){
       return res.send(addedSkill);
     });
   });
   app.post('/api/skill/remove', function(req, res){
     var skill = req.body.skill;
-    SkillController.remove(skill, function(removedSkill){
+    return SkillController.remove(skill, function(removedSkill){
       return res.send(removedSkill);
     });
   });

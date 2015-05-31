@@ -111,6 +111,22 @@ describe('API', function(){
           done();
         });
     });
+    it('should retrieve the id of an individual in database by email', function(done){
+      request.get('/api/individual/email=gong.jim@gmail.com')
+        .end(function(err, res){
+          var individual = JSON.parse(res.text);
+          expect(individual.id).to.equal(indId);
+          done();
+        });
+    });
+    it('should retrieve all individuals filtered by name', function(done){
+      request.get('/api/individual/name=Jimmy Gong')
+        .end(function(err, res){
+          var individuals = JSON.parse(res.text);
+          expect(individuals[0].id).to.equal(indId);
+          done();
+        });
+    });
   });
 });
 

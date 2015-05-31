@@ -12,6 +12,13 @@ var controller = {
       else callback({id: individual.id});
     });
   },
+  getByName: function(name, callback){
+    var query = {where: {name: name}};
+    Individual.findAll(query, {subQuery: false}).then(function(individuals){
+      individuals = individuals.map(utils.protectUserObj);
+      callback(individuals);
+    });
+  },
   getAll: function(callback){
     Individual.findAll({}, {subQuery: false}).then(function(individuals){
       individuals = individuals.map(utils.protectUserObj);
