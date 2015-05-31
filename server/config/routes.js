@@ -17,6 +17,12 @@ function router(app, passport){
         return res.send(individuals);
       });
     }
+    else {
+      var email = param.split('=')[1];
+      IndController.getId(email, function(id){
+        return res.send(id);
+      });
+    }
   });
   app.post('/api/individual/create', function(req, res){
     var email = req.body.email,

@@ -103,7 +103,14 @@ describe('API', function(){
         done();
       });
     });
-
+    it('should retrieve the id of an individual in database', function(done){
+      request.get('/api/individual/email=gong.jim@gmail.com')
+        .end(function(err, res){
+          var individual = JSON.parse(res.text);
+          expect(individual.id).to.equal(indId);
+          done();
+        });
+    });
   });
 });
 
