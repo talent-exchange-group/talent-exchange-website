@@ -214,7 +214,13 @@ describe('API', function(){
       email: 'jg3043@nyu.edu',
       password: 'bigapple',
       name: 'Jimmytonic',
-      location: 'New York City'
+      location: 'new york city'
+    };
+    var secondObj = {
+      email: 'jimmy.gong@hackreactor.com',
+      password: 'olfactory',
+      name: 'Jimmy Incorporated',
+      location: 'new york city'
     };
     it('should add organization to database', function(done){
       request.post('/api/organization/create')

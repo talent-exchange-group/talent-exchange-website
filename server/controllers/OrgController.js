@@ -21,7 +21,17 @@ var controller = {
     });
   },
   getByLocation: function(location, callback){
-
+    location = utils.standardizeInput(location);
+    Organization.findAll({include: [{
+        model: Location,
+        where: {name: location}
+      }]
+    }).then(function(orgs){
+      orgs = orgs.map(function(org){
+        return utils.protectOrgObj(org, location);
+      });
+      callback(orgs);
+    });
   },
   getAll: function(callback){
     Organization.findAll({}, {subQuery: false}).then(function(organizations){
@@ -30,15 +40,18 @@ var controller = {
     });
   },
   add: function(email, password, name, location, callback){
-    var locId = null;
+    location = utils.standardizeInput(location);
     var orgObj = {
       email: email,
       password: bcrypt.hashSync(password, 10),
       name: name
     };
-    Organization.create(orgObj).then(function(org){
-      org = utils.protectUserObj(org);
-      callback(org);
+    Location.findOrCreate({where: {name: location}}).then(function(loc){
+      Organization.create(orgObj).then(function(org){
+        org.setLocation(loc[0]);
+        org = utils.protectOrgObj(org, location);
+        callback(org);
+      });
     });
   },
   remove: function(email, callback){

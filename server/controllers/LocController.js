@@ -23,7 +23,6 @@ var controller = {
     this.getId(locName, function(found){
       if(found.id === -1){
         Location.create({name: locName}).then(function(location){
-          console.log(location);
           callback(utils.removeTimeStamps(location));
         });
       }
