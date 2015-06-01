@@ -11,6 +11,7 @@ var Organization = db.define('Organization', {
   description: Sequelize.STRING
 });
 
+Location.hasMany(Organization, {foreignKey: 'location_id'});
 Organization.belongsTo(Location, { foreignKey: 'location_id'});
 
 OrganizationSkill = db.define('OrganizationSkill', {
