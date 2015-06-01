@@ -43,6 +43,47 @@ function router(app, passport){
     });
   });
   /**
+   * ORGANIZATION API
+   */
+  app.get('/api/organization/*', function(req, res){
+    var param = req.params[0].split('=');
+    if(param[0] === 'all'){
+      return OrgController.getAll(function(organizations){
+        return res.send(organizations);
+      });
+    }
+    if(param[0] === 'email'){
+      return OrgController.getId(param[1], function(id){
+        return res.send(id);
+      });
+    }
+    if(param[0] === 'name'){
+      return OrgController.getByName(param[1], function(organizations){
+        return res.send(organizations);
+      });
+    }
+    if(param[0] === 'location'){
+      return OrgController.getByLocation(param[1], function(organizations){
+        return res.send(organizations);
+      });
+    }
+  });
+  app.post('/api/organization/create', function(req, res){
+    var email = req.body.email,
+        password = req.body.password,
+        name = req.body.name,
+        location = req.body.location;
+    return OrgController.add(email, password, name, location, function(addedOrg){
+      return res.send(addedOrg);
+    });
+  });
+  app.post('/api/organization/remove', function(req, res){
+    var email = req.body.email;
+    return OrgController.remove(email, function(removedOrg){
+      return res.send(removedOrg);
+    });
+  });
+  /**
    * LOCATION API
    */ 
   app.get('/api/location/*', function(req, res){
