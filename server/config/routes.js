@@ -3,6 +3,7 @@ var IndController = require('../controllers/IndController');
 var OrgController = require('../controllers/OrgController');
 var SkillController = require('../controllers/SkillController');
 var LocController = require('../controllers/LocController');
+
 function router(app, passport){
   app.get('/', function(req, res){
     return res.sendStatus(200);
