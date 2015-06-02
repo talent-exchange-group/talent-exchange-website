@@ -7,7 +7,8 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "npm test"
+    "test": "mocha test",
+    "start": "nodemon"
   },
   "repository": {
     "type": "git",
@@ -22,5 +23,27 @@
   "bugs": {
     "url": "https://github.com/jimgong92/talent-exchange-website/issues"
   },
-  "homepage": "https://github.com/jimgong92/talent-exchange-website"
+  "homepage": "https://github.com/jimgong92/talent-exchange-website",
+  "dependencies": {
+    "bcrypt": "^0.8.3",
+    "body-parser": "^1.12.4",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.3.5",
+    "express": "^4.12.4",
+    "express-session": "^1.11.2",
+    "passport": "^0.2.2",
+    "passport-google-oauth": "^0.2.0",
+    "passport-local": "^1.0.0",
+    "pg": "^4.3.0",
+    "pg-hstore": "^2.3.2",
+    "redis": "^0.12.1",
+    "sequelize": "^2.1.0"
+  },
+  "devDependencies": {
+    "chai": "^2.3.0",
+    "mocha": "^2.2.5",
+    "morgan": "^1.5.3",
+    "sinon": "^1.14.1",
+    "supertest": "^1.0.1"
+  }
 }
